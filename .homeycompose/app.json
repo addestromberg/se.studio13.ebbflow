@@ -1,0 +1,28 @@
+{
+  "id": "se.studio13.ebbflow",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Ebb/Flow"
+  },
+  "description": {
+    "en": "Connects to the Ebb/Flow System via Modbus TCP for controlling the PLC."
+  },
+  "category": [
+    "climate"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Adde Strömberg",
+    "email": "adde@upperfield.se"
+  }
+}

@@ -1,0 +1,16 @@
+[
+    {
+      "id": "ip",
+      "type": "text",
+      "label": { "en": "Ip Address" },
+      "value": "192.168.86.150",
+      "hint": { "en": "The servers IP address." }
+    },
+    {
+      "id": "port",
+      "type": "number",
+      "label": { "en": "Port" },
+      "value": 502,
+      "hint": { "en": "The port that the server uses." }
+    }
+  ]
