@@ -1,0 +1,11 @@
+{
+    "type": "number",
+    "title": { "en": "Hysteresis" },
+    "uiComponent": "slider",
+    "getable": true,
+    "setable": true,
+    "units": { "en": "Hys." },
+    "min": 0,
+    "max": 10,
+    "step": 0.5
+}

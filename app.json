@@ -87,5 +87,32 @@
         }
       ]
     }
-  ]
+  ],
+  "capabilities": {
+    "automan": {
+      "type": "boolean",
+      "title": {
+        "en": "Automation"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "toggle",
+      "uiQuickAction": true
+    },
+    "hysteresis": {
+      "type": "number",
+      "title": {
+        "en": "Hysteresis"
+      },
+      "uiComponent": "slider",
+      "getable": true,
+      "setable": true,
+      "units": {
+        "en": "Hys."
+      },
+      "min": 0,
+      "max": 10,
+      "step": 0.5
+    }
+  }
 }

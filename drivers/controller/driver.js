@@ -1,18 +1,48 @@
-'use strict';
+"use strict";
 
-const { Driver } = require('homey');
-const ModbusClient = require('./modbus/modbus_client');
-const ModbusModel = require('./modbus/modbus_model');
+const { Driver, Device } = require("homey");
+const ModbusClient = require("./modbus/modbus_client");
+const ModbusModel = require("./modbus/modbus_model");
 
-class MyDriver extends Driver {
+const GenericDevice = require("./device");
+const AirtempDevice = require("./devices/airtemp");
+const WatertempDevice = require("./devices/watertemp");
 
-  client = new ModbusClient("192.168.86.150", 502);
+class ControllerDriver extends Driver {
+  modbus_client = null;
+
   /**
    * onInit is called when the driver is initialized.
    */
   async onInit() {
-    this.log('MyDriver has been initialized');
-   
+    this.log("ControllerDriver has been initialized");
+    this.modbus_client = new ModbusClient("192.168.86.150", 502);
+  }
+
+  /**
+   * Map devices to there extended classes.
+   * @param {*} device
+   * @returns
+   */
+  onMapDeviceClass(device) {
+    let id = device.getData().id;
+    console.log(id);
+
+    if (id == "airtemp-reg") {
+      return AirtempDevice;
+    } else if (id == "watertemp-reg") {
+      return WatertempDevice;
+    } else {
+      this.error("Couldn't find devicetype.");
+      return GenericDevice;
+    }
+
+    return AirtempDevice;
+    // if( settings.type == "airtemp-reg" ) {
+    //   return AirtempRegDev;
+    // } else {
+    //   console.log("Device isn't found.");
+    // }
   }
 
   /**
@@ -23,80 +53,77 @@ class MyDriver extends Driver {
   async onPairListDevices() {
     return [
       {
-        name: 'Airtemp Regulator',
+        name: "Airtemp Regulator",
         data: {
-          id: 'airtemp-reg',
+          id: "airtemp-reg",
         },
-        store: {
-          type: "airtemp-reg"
-        }
+        capabilities: ["automan", "target_temperature", "measure_temperature", "hysteresis"],
+        capabilitiesOptions: {
+          target_temperature: {
+            min: 5,
+            max: 35,
+          },
+        },
       },
       {
-        name: 'Watertemp Regulator',
+        name: "Watertemp Regulator",
         data: {
-          id: 'watertemp-reg',
+          id: "watertemp-reg",
         },
-        store: {
-          type: "watertemp-reg"
-        }
+        capabilities: ["automan", "target_temperature", "measure_temperature", "hysteresis"],
+        capabilitiesOptions: {
+          target_temperature: {
+            min: 5,
+            max: 35,
+          },
+        },
       },
       {
-        name: 'Growlight Regulator',
+        name: "Growlight Regulator",
         data: {
-          id: 'growlight-reg',
+          id: "growlight-reg",
         },
-        store: {
-          type: "growlight-reg"
-        }
+        capabilities: ["onoff", ""],
+        capabilitiesOptions: {
+          target_temperature: {
+            min: 5,
+            max: 35,
+          },
+        },
       },
       {
-        name: 'Exhaust Regulator',
+        name: "Exhaust Regulator",
         data: {
-          id: 'exhaust-reg',
+          id: "exhaust-reg",
         },
-        store: {
-          type: "exhaust-reg"
-        }
+
       },
       {
-        name: 'Airmixers Regulator',
+        name: "Airmixers Regulator",
         data: {
-          id: 'airmixers-reg',
+          id: "airmixers-reg",
         },
-        store: {
-          type: "airmixers-reg"
-        }
       },
       {
-        name: 'Buffertank',
+        name: "Buffertank",
         data: {
-          id: 'buffertank',
+          id: "buffertank",
         },
-        store: {
-          type: "buffertank"
-        }
       },
       {
-        name: 'Tray A',
+        name: "Tray A",
         data: {
-          id: 'tray-a',
+          id: "tray-a",
         },
-        store: {
-          type: "tray-a"
-        }
       },
       {
-        name: 'Tray B',
+        name: "Tray B",
         data: {
-          id: 'tray-b',
+          id: "tray-b",
         },
-        store: {
-          type: "tray-b"
-        }
       },
     ];
   }
-
 }
 
-module.exports = MyDriver;
+module.exports = ControllerDriver;

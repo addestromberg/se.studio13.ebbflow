@@ -2,19 +2,19 @@
 
 const { Device } = require("homey");
 
-class GenericDevice extends Device {
+class WatertempDevice extends Device {
   /**
    * onInit is called when the device is initialized.
    */
   async onInit() {
-    console.log("Generic Device. Won't work.");
+    console.log("Watertemp device initiated.");
   }
 
   /**
    * onAdded is called when the user adds the device, called just after pairing.
    */
   async onAdded() {
-    this.log("MyDevice has been added");
+    this.log("Watertemp has been added");
   }
 
   /**
@@ -46,4 +46,4 @@ class GenericDevice extends Device {
   }
 }
 
-module.exports = GenericDevice;
+module.exports = WatertempDevice;

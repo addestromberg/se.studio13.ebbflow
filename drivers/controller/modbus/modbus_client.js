@@ -35,11 +35,11 @@ class ModbusClient {
 
   subscribeToSocketEvents() {
     _socket.on('connect', () => {
-      // console.log('Socket connected');
+      console.log('Socket connected');
       this.events.emit('connected');
     });
     _socket.on('error', err => {
-      // console.log(`Socket Error${err}`);
+      console.log(`Socket Error${err}`);
       // The connection failed. Wait 10 seconds and try again.
       this.events.emit('disconnected');
       setTimeout(() => {
@@ -47,7 +47,7 @@ class ModbusClient {
       }, 10000);
     });
     _socket.on('end', () => {
-      // console.log('Socket disconnected');
+      console.log('Socket disconnected');
       // The connection failed. Wait 10 seconds and try again.
       this.events.emit('disconnected');
       setTimeout(() => {
@@ -62,16 +62,19 @@ class ModbusClient {
    * @returns returns number with value.
    */
   readValue(capability) {
+    console.log("Reading value");
     return new Promise((resolve, reject) => {
       if (capability.modbus_item.fc === ModbusModel.ModbusType.COIL) {
         this.client.readCoils(capability.modbus_item.address, 1).then(res => {
+          console.log(res)
           resolve(Boolean(res.response.body.valuesAsArray[0]));
         }).catch(err => {
           reject(err);
         });
       } else if (capability.modbus_item.fc === ModbusModel.ModbusType.HOLDING_REGISTER) {
-        this.client.readInputRegisters(capability.modbus_item.address, 1).then(res => {
-          resolve(Number(res.response.body.valuesAsArray[0]));
+        this.client.readHoldingRegisters(capability.modbus_item.address, 1).then(res => {
+          let value = res.response.body.values[0];
+          resolve(Number(value));
         }).catch(err => {
           reject(err);
         });
