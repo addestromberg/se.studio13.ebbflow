@@ -66,9 +66,19 @@ class AirtempDevice extends Device {
       this._pollList.forEach(item => {
         this.log(`Polling capability: ${item.capability}`);
         this._api.readValue(item).then(res => {
-          if (this.hasCapability(item.capability)) {
+          if (item.capability == "automan") {
+            this.setCapabilityValue(item.capability, res)
+          }
+          if (item.capability == "measure_temperature") {
             this.setCapabilityValue(item.capability, res/10);
           }
+          if (item.capability == "target_temperature") {
+            this.setCapabilityValue(item.capability, res / 10);
+          }
+          if (item.capability == "hysteresis") {
+            this.setCapabilityValue(item.capability, res/10);
+          }
+
         }).catch(err => {
           this.log(err);
         });

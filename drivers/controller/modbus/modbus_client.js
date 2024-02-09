@@ -62,11 +62,11 @@ class ModbusClient {
    * @returns returns number with value.
    */
   readValue(capability) {
-    console.log("Reading value");
+    //console.log("Reading value");
     return new Promise((resolve, reject) => {
       if (capability.modbus_item.fc === ModbusModel.ModbusType.COIL) {
         this.client.readCoils(capability.modbus_item.address, 1).then(res => {
-          console.log(res)
+          //console.log(res)
           resolve(Boolean(res.response.body.valuesAsArray[0]));
         }).catch(err => {
           reject(err);
@@ -84,7 +84,7 @@ class ModbusClient {
     });
   }
 
-  writeSingleValue(address, value) {
+  writeSingleCoil(address, value) {
     return new Promise((resolve, reject) => {
       this.client.writeSingleCoil(address, value).then(res => {
         resolve(res);
@@ -92,6 +92,17 @@ class ModbusClient {
         reject(err);
       });
     });
+  }
+
+  writeSingleRegister(address, value) {
+    return new Promise((resolve, reject) => {
+      this.client.writeSingleRegister(address, value)(res => {
+        console.log(res);
+        resolve(res);
+      }).catch(err => {
+        reject(err);
+      })
+    })
   }
 
 }
