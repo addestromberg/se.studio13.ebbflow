@@ -12,5 +12,12 @@
       "label": { "en": "Port" },
       "value": 502,
       "hint": { "en": "The port that the server uses." }
+    },
+    {
+      "id": "decimals",
+      "type": "number",
+      "label": { "en": "Decimals" },
+      "value": 1,
+      "hint": { "en": "My Server has a decimal divider/multiplier. i.e Temperature of 10.0 is read and written as 100 on server." }
     }
   ]

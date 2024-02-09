@@ -1,6 +1,6 @@
 {
     "type": "boolean",
-    "title": { "en": "Automation" },
+    "title": { "en": "Automatik" },
     "getable": true,
     "setable": true,
     "uiComponent": "toggle",

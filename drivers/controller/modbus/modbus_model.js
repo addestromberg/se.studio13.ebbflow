@@ -10,22 +10,22 @@ const ModbusType = {
 const ModbusModel = {
   ModbusType,
   // Flags (M) (R/W Control binary with these)
-  LIGHTS_AUTO: { address: 8257, fc: ModbusType.COIL },
-  LIGHTS_ONOFF: { address: 8258, fc: ModbusType.COIL },
-  WATERHEATER_AUTO: { address: 8259, fc: ModbusType.COIL },
-  WATERHEATER_ONOFF: { address: 8260, fc: ModbusType.COIL },
-  AIRHEATER_AUTO: { address: 8261, fc: ModbusType.COIL },
-  AIRHEATER_ONOFF: { address: 8262, fc: ModbusType.COIL },
-  EXHAUST_AUTO: { address: 8263, fc: ModbusType.COIL },
-  EXHAUST_ONOFF: { address: 8264, fc: ModbusType.COIL },
-  AIRMIXERS_AUTO: { address: 8265, fc: ModbusType.COIL },
-  AIRMIXERS_ONOFF: { address: 8266, fc: ModbusType.COIL },
-  EFA_AUTO: { address: 8267, fc: ModbusType.COIL },
-  FLOWPUMP_A_ONOFF: { address: 8268, fc: ModbusType.COIL },
-  DUMPVALVE_A_OPENCLOSE: { address: 8269, fc: ModbusType.COIL },
-  EFB_AUTO: { address: 8270, fc: ModbusType.COIL },
-  FLOWPUMP_B_ONOFF: { address: 8271, fc: ModbusType.COIL },
-  DUMPVALVE_B_OPENCLOSE: { address: 8272, fc: ModbusType.COIL },
+  LIGHTS_AUTO: { address: 8256, fc: ModbusType.COIL },
+  LIGHTS_ONOFF: { address: 8257, fc: ModbusType.COIL },
+  WATERHEATER_AUTO: { address: 8258, fc: ModbusType.COIL },
+  WATERHEATER_ONOFF: { address: 8259, fc: ModbusType.COIL },
+  AIRHEATER_AUTO: { address: 8260, fc: ModbusType.COIL },
+  AIRHEATER_ONOFF: { address: 8261, fc: ModbusType.COIL },
+  EXHAUST_AUTO: { address: 8262, fc: ModbusType.COIL },
+  EXHAUST_ONOFF: { address: 8263, fc: ModbusType.COIL },
+  AIRMIXERS_AUTO: { address: 8264, fc: ModbusType.COIL },
+  AIRMIXERS_ONOFF: { address: 8265, fc: ModbusType.COIL },
+  EFA_AUTO: { address: 8266, fc: ModbusType.COIL },
+  FLOWPUMP_A_ONOFF: { address: 8267, fc: ModbusType.COIL },
+  DUMPVALVE_A_OPENCLOSE: { address: 8268, fc: ModbusType.COIL },
+  EFB_AUTO: { address: 8269, fc: ModbusType.COIL },
+  FLOWPUMP_B_ONOFF: { address: 8270, fc: ModbusType.COIL },
+  DUMPVALVE_B_OPENCLOSE: { address: 8271, fc: ModbusType.COIL },
   
   // Outputs (Can but should not write directly)
   GROWLIGHTS_OUTPUT: { address: 8193, fc: ModbusType.COIL },
@@ -70,6 +70,8 @@ const ModbusModel = {
 };
 
 /**
+ * Seems to be offset by -1
+ * 
  * Siemens LOGO Modbus Addressing
  * Type   Range       Modbus Address    Direction   Unit
  * I      1-24        DI 1-24           R           bit

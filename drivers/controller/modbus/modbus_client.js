@@ -13,6 +13,7 @@ class ModbusClient {
 
   constructor(host, port) {
     this.client = new Modbus.client.TCP(_socket, 0, 10000);
+    this.client.set
     this.options = { host, port };
     this.events = new _eventEmitter.EventEmitter();
     this.subscribeToSocketEvents();
@@ -73,7 +74,7 @@ class ModbusClient {
         });
       } else if (capability.modbus_item.fc === ModbusModel.ModbusType.HOLDING_REGISTER) {
         this.client.readHoldingRegisters(capability.modbus_item.address, 1).then(res => {
-          let value = res.response.body.values[0];
+          let value = res.response.body.valuesAsArray[0];
           resolve(Number(value));
         }).catch(err => {
           reject(err);
@@ -96,8 +97,7 @@ class ModbusClient {
 
   writeSingleRegister(address, value) {
     return new Promise((resolve, reject) => {
-      this.client.writeSingleRegister(address, value)(res => {
-        console.log(res);
+      this.client.writeSingleRegister(address, Number(Math.round(value))).then(res => {
         resolve(res);
       }).catch(err => {
         reject(err);

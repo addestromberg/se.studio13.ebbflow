@@ -84,6 +84,17 @@
           "hint": {
             "en": "The port that the server uses."
           }
+        },
+        {
+          "id": "decimals",
+          "type": "number",
+          "label": {
+            "en": "Decimals"
+          },
+          "value": 1,
+          "hint": {
+            "en": "My Server has a decimal divider/multiplier. i.e Temperature of 10.0 is read and written as 100 on server."
+          }
         }
       ]
     }
@@ -92,7 +103,7 @@
     "automan": {
       "type": "boolean",
       "title": {
-        "en": "Automation"
+        "en": "Automatik"
       },
       "getable": true,
       "setable": true,
@@ -108,7 +119,7 @@
       "getable": true,
       "setable": true,
       "units": {
-        "en": "Hys."
+        "en": "°C"
       },
       "min": 0,
       "max": 10,
