@@ -26,6 +26,10 @@ const ModbusModel = {
   EFB_AUTO: { address: 8270, fc: ModbusType.COIL },
   FLOWPUMP_B_ONOFF: { address: 8271, fc: ModbusType.COIL },
   DUMPVALVE_B_OPENCLOSE: { address: 8272, fc: ModbusType.COIL },
+  // ALARMFLAGS (READ ONLY)
+  BUFFERLEVEL_H: { address: 8273, fc: ModbusType.COIL },
+  BUFFERLEVEL_L: { address: 8274, fc: ModbusType.COIL },
+  BUFFERLEVEL_LL: { address: 8275, fc: ModbusType.COIL },
   
   // Outputs (Can but should not write directly)
   GROWLIGHTS_OUTPUT: { address: 8192, fc: ModbusType.COIL },
@@ -53,9 +57,9 @@ const ModbusModel = {
   HYST_AIRTEMP: { address: 5, fc: ModbusType.HOLDING_REGISTER },
   SP_HUMIDITY: { address: 6, fc: ModbusType.HOLDING_REGISTER },
   HYST_HUMIDITY: { address: 7, fc: ModbusType.HOLDING_REGISTER },
-  BUFFER_H_LEVEL: { address: 8, fc: ModbusType.HOLDING_REGISTER },
-  BUFFER_L_LEVEL: { address: 9, fc: ModbusType.HOLDING_REGISTER },
-  BUFFER_LL_LEVEL: { address: 10, fc: ModbusType.HOLDING_REGISTER },
+  SP_BUFFER_H: { address: 8, fc: ModbusType.HOLDING_REGISTER },
+  SP_BUFFER_L: { address: 9, fc: ModbusType.HOLDING_REGISTER },
+  SP_BUFFER_LL: { address: 10, fc: ModbusType.HOLDING_REGISTER },
   EFA_FLOOD_TIME: { address: 11, fc: ModbusType.HOLDING_REGISTER },
   EFA_FLOW_TIME: { address: 12, fc: ModbusType.HOLDING_REGISTER },
   EFA_EBB_TIME: { address: 13, fc: ModbusType.HOLDING_REGISTER },
@@ -67,6 +71,7 @@ const ModbusModel = {
   AIR_TEMP: { address: 19, fc: ModbusType.HOLDING_REGISTER },
   WATER_TEMP: { address: 20, fc: ModbusType.HOLDING_REGISTER },
   HUMIDITY: { address: 21, fc: ModbusType.HOLDING_REGISTER },
+  BUFFERLEVEL: { address: 22, fc: ModbusType.HOLDING_REGISTER },
 
 };
 

@@ -1,0 +1,8 @@
+{
+    "type": "number",
+    "title": { "en": "Waterlevel" },
+    "uiComponent": "sensor",
+    "getable": true,
+    "setable": false,
+    "units": { "en": "%" }
+}

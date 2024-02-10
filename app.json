@@ -166,6 +166,58 @@
               }
             }
           ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Buffertank"
+          },
+          "children": [
+            {
+              "id": "buffer_h",
+              "type": "number",
+              "label": {
+                "en": "Buffer Level H"
+              },
+              "value": 90,
+              "hint": {
+                "en": "High alarm level."
+              }
+            },
+            {
+              "id": "buffer_l",
+              "type": "number",
+              "label": {
+                "en": "Buffer Level L"
+              },
+              "value": 10,
+              "hint": {
+                "en": "Low alarm level."
+              }
+            },
+            {
+              "id": "buffer_ll",
+              "type": "number",
+              "label": {
+                "en": "Buffer Level LL"
+              },
+              "value": 5,
+              "hint": {
+                "en": "LowLow alarm level."
+              }
+            },
+            {
+              "id": "buffer_decimal",
+              "type": "number",
+              "label": {
+                "en": "Decimal"
+              },
+              "value": 1,
+              "hint": {
+                "en": "The buffer levels uses multiply/divide to convert floats to int."
+              }
+            }
+          ]
         }
       ]
     }
@@ -260,6 +312,18 @@
           }
         }
       ]
+    },
+    "measure_waterlevel": {
+      "type": "number",
+      "title": {
+        "en": "Waterlevel"
+      },
+      "uiComponent": "sensor",
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "%"
+      }
     }
   }
 }
