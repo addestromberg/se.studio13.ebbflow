@@ -95,6 +95,36 @@
           "hint": {
             "en": "My Server has a decimal divider/multiplier. i.e Temperature of 10.0 is read and written as 100 on server."
           }
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Growinglights"
+          },
+          "children": [
+            {
+              "id": "growlights_on",
+              "type": "number",
+              "label": {
+                "en": "Time On (min)"
+              },
+              "value": 720,
+              "hint": {
+                "en": "The time growinglights should be on in the on/off cycle."
+              }
+            },
+            {
+              "id": "growlights_off",
+              "type": "number",
+              "label": {
+                "en": "Time Off (min)"
+              },
+              "value": 720,
+              "hint": {
+                "en": "The time growinglights should be off in the on/off cycle."
+              }
+            }
+          ]
         }
       ]
     }
@@ -111,19 +141,84 @@
       "uiQuickAction": true
     },
     "hysteresis": {
-      "type": "number",
+      "type": "enum",
       "title": {
         "en": "Hysteresis"
       },
-      "uiComponent": "slider",
+      "uiComponent": "picker",
       "getable": true,
       "setable": true,
       "units": {
         "en": "°C"
       },
-      "min": 0,
-      "max": 10,
-      "step": 0.5
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "0 °C"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "0.5 °C"
+          }
+        },
+        {
+          "id": "10",
+          "title": {
+            "en": "1.0 °C"
+          }
+        },
+        {
+          "id": "15",
+          "title": {
+            "en": "1.5 °C"
+          }
+        },
+        {
+          "id": "20",
+          "title": {
+            "en": "2.0 °C"
+          }
+        },
+        {
+          "id": "25",
+          "title": {
+            "en": "2.5 °C"
+          }
+        },
+        {
+          "id": "30",
+          "title": {
+            "en": "3.0 °C"
+          }
+        },
+        {
+          "id": "35",
+          "title": {
+            "en": "3.5 °C"
+          }
+        },
+        {
+          "id": "40",
+          "title": {
+            "en": "4.0 °C"
+          }
+        },
+        {
+          "id": "45",
+          "title": {
+            "en": "4.5 °C"
+          }
+        },
+        {
+          "id": "50",
+          "title": {
+            "en": "5.0 °C"
+          }
+        }
+      ]
     }
   }
 }

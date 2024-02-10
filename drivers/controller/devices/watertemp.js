@@ -99,7 +99,7 @@ class WatertempDevice extends Device {
     // Hysterese setpoint
     this.registerCapabilityListener("hysteresis", async (value) => {
       this._api
-        .writeSingleRegister(ModbusModel.HYST_WATERTEMP.address, value * this._decimal)
+        .writeSingleRegister(ModbusModel.HYST_WATERTEMP.address, value) // Uses predefined array. No need to multiply decimals.
         .catch((err) => {
           console.log(err);
         });
@@ -144,7 +144,13 @@ class WatertempDevice extends Device {
               this.setCapabilityValue(item.capability, res / this._decimal);
             }
             if (item.capability == "hysteresis") {
-              this.setCapabilityValue(item.capability, res / this._decimal);
+              // Becouse there are no input boxes in homey, we need to use a picker or slider.
+              // so let's use a fixed picker with .5 degree steps on hysteresis.
+              // console.log("Result from hysteresis:  %d", res)
+              let value = Math.ceil(res/5)*5; // Round to closest 5.
+              if (value > 50) value = 50; // Picker array maximum
+              if (value < 0) value = 0; // Picker array minimum
+              this.setCapabilityValue(item.capability, value.toString());
             }
           })
           .catch((err) => {

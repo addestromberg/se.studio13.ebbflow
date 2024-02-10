@@ -7,6 +7,7 @@ const ModbusModel = require("./modbus/modbus_model");
 const GenericDevice = require("./device");
 const AirtempDevice = require("./devices/airtemp");
 const WatertempDevice = require("./devices/watertemp");
+const GrowinglightsDevice = require("./devices/growinglights");
 
 class ControllerDriver extends Driver {
   // Example object
@@ -63,17 +64,12 @@ class ControllerDriver extends Driver {
       return AirtempDevice;
     } else if (id == "watertemp-reg") {
       return WatertempDevice;
+    } else if (id == "growlight-reg") {
+      return GrowinglightsDevice;
     } else {
       this.error("Couldn't find devicetype.");
       return GenericDevice;
     }
-
-    return AirtempDevice;
-    // if( settings.type == "airtemp-reg" ) {
-    //   return AirtempRegDev;
-    // } else {
-    //   console.log("Device isn't found.");
-    // }
   }
 
   /**
@@ -126,7 +122,7 @@ class ControllerDriver extends Driver {
         data: {
           id: "growlight-reg",
         },
-        capabilities: ["onoff"],
+        capabilities: ["onoff", "automan"],
       },
       {
         name: "Exhaust Regulator",

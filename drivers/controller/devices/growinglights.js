@@ -3,24 +3,20 @@
 const { Device } = require("homey");
 const ModbusModel = require("../modbus/modbus_model");
 
-class AirtempDevice extends Device {
+class GrowinglightsDevice extends Device {
   _api = null;
   _pollList = [];
   _pollTimer = null;
-  _settings = null;
-
-  _decimal = 1;
+  _settings = {};
 
   /**
    * onInit is called when the device is initialized.
    */
   async onInit() {
-    console.log("Airtemp device initiated.");
+    console.log("Growinglights device initiated.");
     this._settings = this.getSettings();
     // console.log(this._settings);
-    // Preload the decimal correction.
-    if (this._settings["decimals"] != 0) this._decimal = 10 ** this._settings['decimals'];
-    
+
     this._api = this.driver.getClient(
       this._settings["ip"],
       this._settings["port"]
@@ -31,27 +27,27 @@ class AirtempDevice extends Device {
   }
 
   assemblePollList() {
-    // capabilities: ["automan", "target_temperature", "measure_temperature", "hysteresis"],
+    // capabilities: ["automan", "onoff"],
     this._pollList = [];
     this._pollList.push({
       capability: "automan",
-      modbus_item: ModbusModel.AIRHEATER_AUTO,
-    });
-    this._pollList.push({
-      capability: "target_temperature",
-      modbus_item: ModbusModel.SP_AIRTEMP,
-    });
-    this._pollList.push({
-      capability: "measure_temperature",
-      modbus_item: ModbusModel.AIR_TEMP,
-    });
-    this._pollList.push({
-      capability: "hysteresis",
-      modbus_item: ModbusModel.HYST_AIRTEMP,
+      modbus_item: ModbusModel.LIGHTS_AUTO,
     });
     this._pollList.push({
       capability: "onoff",
-      modbus_item: ModbusModel.AIRHEATER_ONOFF,
+      modbus_item: ModbusModel.LIGHTS_ONOFF,
+    });
+    this._pollList.push({
+      capability: "lightoutput",
+      modbus_item: ModbusModel.GROWLIGHTS_OUTPUT,
+    });
+    this._pollList.push({
+      capability: "ontime",
+      modbus_item: ModbusModel.SP_GROWINGLIGHTS_ON,
+    });
+    this._pollList.push({
+      capability: "offtime",
+      modbus_item: ModbusModel.SP_GROWINGLIGHTS_OFF,
     });
 
     // this.log('Assembled a new pollinglist');
@@ -85,29 +81,10 @@ class AirtempDevice extends Device {
    * In case capability is settable. Add CapabilityListener
    */
   addCapabilityListeners() {
-    // Airtemp setpoint
-    this.registerCapabilityListener("target_temperature", async (value) => {
-      this._api
-        .writeSingleRegister(ModbusModel.SP_AIRTEMP.address, value * this._decimal)
-        .catch((err) => {
-          console.log(err);
-        });
-    });
-
-    // Hysterese setpoint
-    this.registerCapabilityListener("hysteresis", async (value) => {
-      //console.log("Listener value hysteresis: ", value);
-      this._api
-        .writeSingleRegister(ModbusModel.HYST_AIRTEMP.address, value)
-        .catch((err) => {
-          console.log(err);
-        });
-    });
-
     // AUTO ON/OFF
     this.registerCapabilityListener("automan", async (value) => {
       this._api
-        .writeSingleCoil(ModbusModel.AIRHEATER_AUTO.address, value)
+        .writeSingleCoil(ModbusModel.LIGHTS_AUTO.address, value)
         .catch((err) => {
           console.log(err);
         });
@@ -116,7 +93,7 @@ class AirtempDevice extends Device {
     // HEATER ON/OFF
     this.registerCapabilityListener("onoff", async (value) => {
       this._api
-        .writeSingleCoil(ModbusModel.AIRHEATER_ONOFF.address, value)
+        .writeSingleCoil(ModbusModel.LIGHTS_ONOFF.address, value)
         .catch((err) => {
           console.log(err);
         });
@@ -132,24 +109,38 @@ class AirtempDevice extends Device {
         // this.log(`Polling capability: ${item.capability}`);
         this._api
           .readValue(item)
-          .then((res) => {
+          .then(async (res) => {
+            if (item.capability == "lightoutput") {
+              
+              // Syncronize onoff with timer and override hardware
+              if (this.getCapabilityValue("onoff") != res) {
+                this.setCapabilityValue("onoff", res);
+              }
+            }
             if (item.capability == "automan") {
               this.setCapabilityValue(item.capability, res);
             }
-            if (item.capability == "measure_temperature") {
-              this.setCapabilityValue(item.capability, res / this._decimal);
+            if (item.capability == "onoff") {
+              this.setCapabilityValue(item.capability, res);
             }
-            if (item.capability == "target_temperature") {
-              this.setCapabilityValue(item.capability, res / this._decimal);
+            // Update the settings if timer is changed elsewhere.
+            if (item.capability == "ontime") {
+              if (this._settings["growlights_on"] != res) {
+                await this.setSettings({ growlights_on: res }).catch((err) =>
+                  console.log(err)
+                );
+                this._settings = this.getSettings();
+              }
             }
-            if (item.capability == "hysteresis") {
-              // Becouse there are no input boxes in homey, we need to use a picker or slider.
-              // so let's use a fixed picker with .5 degree steps on hysteresis.
-              // console.log("Result from hysteresis:  %d", res)
-              let value = Math.ceil(res/5)*5; // Round to closest 5.
-              if (value > 50) value = 50; // Picker array maximum
-              if (value < 0) value = 0; // Picker array minimum
-              this.setCapabilityValue(item.capability, value.toString());
+            if (item.capability == "offtime") {
+              if (this._settings["growlights_off"] != res) {
+                //console.log("Result from poll: ", res);
+                //this._settings["growlights_off"] = res;
+                await this.setSettings({ growlights_off: res }).catch((err) =>
+                  console.log(err)
+                );
+                this._settings = this.getSettings();
+              }
             }
           })
           .catch((err) => {
@@ -177,14 +168,46 @@ class AirtempDevice extends Device {
   async onSettings({ oldSettings, newSettings, changedKeys }) {
     this.log("MyDevice settings where changed");
     this._settings = newSettings;
-    // Redo decimal preload.
-    if (this._settings["decimals"] != 0) this._decimal = 10 ** this._settings['decimal'];
-    // Reload Client
-    this._api = this.driver.getClient(
-      this._settings["ip"],
-      this._settings["port"]
-    );
-    this.subscribeToEvents();
+    // console.log("Settingskey changed: ", changedKeys);
+    
+    if (changedKeys.includes("growlights_on")) {
+      console.log("Growlights timer changed. Writing to register.");
+      await this._api
+        .writeSingleRegister(
+          ModbusModel.SP_GROWINGLIGHTS_ON.address,
+          newSettings["growlights_on"]
+        )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
+    if (changedKeys.includes("growlights_off")) {
+      await this._api
+        .writeSingleRegister(
+          ModbusModel.SP_GROWINGLIGHTS_OFF.address,
+          newSettings["growlights_off"]
+        )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
+    if (changedKeys.includes("ip") || changedKeys.includes("port")) {
+      this._api = this.driver.getClient(
+        this._settings["ip"],
+        this._settings["port"]
+      );
+      this.subscribeToEvents();
+    }
+
+    return "Saved!";
   }
 
   /**
@@ -195,4 +218,4 @@ class AirtempDevice extends Device {
   }
 }
 
-module.exports = AirtempDevice;
+module.exports = GrowinglightsDevice;

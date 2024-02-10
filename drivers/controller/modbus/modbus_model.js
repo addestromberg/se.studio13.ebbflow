@@ -28,15 +28,15 @@ const ModbusModel = {
   DUMPVALVE_B_OPENCLOSE: { address: 8271, fc: ModbusType.COIL },
   
   // Outputs (Can but should not write directly)
-  GROWLIGHTS_OUTPUT: { address: 8193, fc: ModbusType.COIL },
-  AIRHEATER_OUTPUT: { address: 8194, fc: ModbusType.COIL },
-  WATERHEATER_OUTPUT: { address: 8195, fc: ModbusType.COIL },
-  EXHAUST_OUTPUT: { address: 8196, fc: ModbusType.COIL },
-  AIRMIXERS_OUTPUT: { address: 8197, fc: ModbusType.COIL },
-  FLOWPUMP_A_OUTPUT: { address: 8198, fc: ModbusType.COIL },
-  DUMPVALVE_A_OUTPUT: { address: 8199, fc: ModbusType.COIL },
-  FLOWPUMP_B_OUTPUT: { address: 8200, fc: ModbusType.COIL },
-  DUMPVALVE_B_OUTPUT: { address: 8201, fc: ModbusType.COIL },
+  GROWLIGHTS_OUTPUT: { address: 8192, fc: ModbusType.COIL },
+  AIRHEATER_OUTPUT: { address: 8193, fc: ModbusType.COIL },
+  WATERHEATER_OUTPUT: { address: 8194, fc: ModbusType.COIL },
+  EXHAUST_OUTPUT: { address: 8195, fc: ModbusType.COIL },
+  AIRMIXERS_OUTPUT: { address: 8196, fc: ModbusType.COIL },
+  FLOWPUMP_A_OUTPUT: { address: 8197, fc: ModbusType.COIL },
+  DUMPVALVE_A_OUTPUT: { address: 8198, fc: ModbusType.COIL },
+  FLOWPUMP_B_OUTPUT: { address: 8199, fc: ModbusType.COIL },
+  DUMPVALVE_B_OUTPUT: { address: 8200, fc: ModbusType.COIL },
 
   // Analog in (Read only)
   BUFFERTEMP_INPUT: { address: 0, fc: ModbusType.INPUT_REGISTER },

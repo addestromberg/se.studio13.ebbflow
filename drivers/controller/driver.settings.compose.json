@@ -19,5 +19,26 @@
       "label": { "en": "Decimals" },
       "value": 1,
       "hint": { "en": "My Server has a decimal divider/multiplier. i.e Temperature of 10.0 is read and written as 100 on server." }
+    },
+
+    {
+      "type": "group",
+      "label": { "en": "Growinglights" },
+      "children": [
+        {
+          "id": "growlights_on",
+          "type": "number",
+          "label": { "en": "Time On (min)" },
+          "value": 720,
+          "hint": { "en": "The time growinglights should be on in the on/off cycle." }
+        },
+        {
+          "id": "growlights_off",
+          "type": "number",
+          "label": { "en": "Time Off (min)" },
+          "value": 720,
+          "hint": { "en": "The time growinglights should be off in the on/off cycle." }
+        }
+      ]
     }
   ]
