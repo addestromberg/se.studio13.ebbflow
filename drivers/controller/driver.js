@@ -11,6 +11,8 @@ const GrowinglightsDevice = require("./devices/growinglights");
 const AirmixersDevice = require("./devices/airmixers");
 const ExhaustDevice = require("./devices/exhaust");
 const BufferDevice = require("./devices/buffer");
+const TrayADevice = require("./devices/tray_a");
+const TrayBDevice = require("./devices/tray_b");
 
 class ControllerDriver extends Driver {
   // Example object
@@ -34,20 +36,24 @@ class ControllerDriver extends Driver {
   /**
    * Checks if a client for address and port exists. Otherwise
    * create a new client and return that.
-   * @param {string} address 
-   * @param {int} port 
+   * @param {string} address
+   * @param {int} port
    * @returns ModbusClient
    */
   getClient(address, port) {
+    // Check if client is available
     if (address in this.modbus_clients) {
+      // Check if client found uses the same port
       if (this.modbus_clients[address].port == port) {
         return this.modbus_clients[address].client;
       } else {
+        // Client is on an other port. Create a new client
         let client = new ModbusClient(address, port);
         this.modbus_clients[address] = { port: port, client: client };
         return this.modbus_clients[address].client;
       }
     } else {
+      // No client found. Create a new client.
       let client = new ModbusClient(address, port);
       this.modbus_clients[address] = { port: port, client: client };
       return this.modbus_clients[address].client;
@@ -75,6 +81,10 @@ class ControllerDriver extends Driver {
       return ExhaustDevice;
     } else if (id == "buffertank") {
       return BufferDevice;
+    } else if (id == "tray-a") {
+      return TrayADevice;
+    } else if (id == "tray-b") {
+      return TrayBDevice;
     } else {
       this.error("Couldn't find devicetype.");
       return GenericDevice;
@@ -117,7 +127,7 @@ class ControllerDriver extends Driver {
           "target_temperature",
           "measure_temperature",
           "hysteresis",
-          "onoff"
+          "onoff",
         ],
         capabilitiesOptions: {
           target_temperature: {
@@ -152,19 +162,26 @@ class ControllerDriver extends Driver {
         data: {
           id: "buffertank",
         },
-        capabilities: ["alarm_water.H", "alarm_water.L", "alarm_water.LL", "measure_waterlevel"],
+        capabilities: [
+          "alarm_water.H",
+          "alarm_water.L",
+          "alarm_water.LL",
+          "measure_waterlevel",
+        ],
       },
       {
         name: "Tray A",
         data: {
           id: "tray-a",
         },
+        capabilities: ["automan", "flowpump", "drainvalve"],
       },
       {
         name: "Tray B",
         data: {
           id: "tray-b",
         },
+        capabilities: ["automan", "flowpump", "drainvalve"],
       },
     ];
   }

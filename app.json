@@ -218,6 +218,110 @@
               }
             }
           ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Tray A"
+          },
+          "children": [
+            {
+              "id": "flood_time_a",
+              "type": "number",
+              "label": {
+                "en": "Flood Time (min)"
+              },
+              "value": 720,
+              "hint": {
+                "en": "The time the tray is flooded vs drained."
+              }
+            },
+            {
+              "id": "flow_time_a",
+              "type": "number",
+              "label": {
+                "en": "Flow Time (min)"
+              },
+              "value": 720,
+              "hint": {
+                "en": "The time the tray is in flow mode during the flood time."
+              }
+            },
+            {
+              "id": "ebb_time_a",
+              "type": "number",
+              "label": {
+                "en": "Ebb Time (min)"
+              },
+              "value": 720,
+              "hint": {
+                "en": "The time the tray is in ebb vs flow during flood time."
+              }
+            },
+            {
+              "id": "drain_time_a",
+              "type": "number",
+              "label": {
+                "en": "Drain Time (min)"
+              },
+              "value": 720,
+              "hint": {
+                "en": "The time the tray is drained vs flooded."
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Tray B"
+          },
+          "children": [
+            {
+              "id": "flood_time_b",
+              "type": "number",
+              "label": {
+                "en": "Flood Time (min)"
+              },
+              "value": 720,
+              "hint": {
+                "en": "The time the tray is flooded vs drained."
+              }
+            },
+            {
+              "id": "flow_time_b",
+              "type": "number",
+              "label": {
+                "en": "Flow Time (min)"
+              },
+              "value": 720,
+              "hint": {
+                "en": "The time the tray is in flow mode during the flood time."
+              }
+            },
+            {
+              "id": "ebb_time_b",
+              "type": "number",
+              "label": {
+                "en": "Ebb Time (min)"
+              },
+              "value": 720,
+              "hint": {
+                "en": "The time the tray is in ebb vs flow during flood time."
+              }
+            },
+            {
+              "id": "drain_time_b",
+              "type": "number",
+              "label": {
+                "en": "Drain Time (min)"
+              },
+              "value": 720,
+              "hint": {
+                "en": "The time the tray is drained vs flooded."
+              }
+            }
+          ]
         }
       ]
     }
@@ -227,6 +331,26 @@
       "type": "boolean",
       "title": {
         "en": "Automatik"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "toggle",
+      "uiQuickAction": true
+    },
+    "drainvalve": {
+      "type": "boolean",
+      "title": {
+        "en": "Drainvalve"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "toggle",
+      "uiQuickAction": true
+    },
+    "flowpump": {
+      "type": "boolean",
+      "title": {
+        "en": "Flowpump"
       },
       "getable": true,
       "setable": true,
