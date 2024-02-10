@@ -111,7 +111,6 @@ class GrowinglightsDevice extends Device {
           .readValue(item)
           .then(async (res) => {
             if (item.capability == "lightoutput") {
-              
               // Syncronize onoff with timer and override hardware
               if (this.getCapabilityValue("onoff") != res) {
                 this.setCapabilityValue("onoff", res);
@@ -121,7 +120,10 @@ class GrowinglightsDevice extends Device {
               this.setCapabilityValue(item.capability, res);
             }
             if (item.capability == "onoff") {
-              this.setCapabilityValue(item.capability, res);
+              if (this.getCapabilityValue("lightoutput") == res) {
+                this.setCapabilityValue(item.capability, res);
+              }
+              
             }
             // Update the settings if timer is changed elsewhere.
             if (item.capability == "ontime") {
