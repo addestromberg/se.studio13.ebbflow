@@ -88,6 +88,7 @@ class ModbusClient {
   writeSingleCoil(address, value) {
     return new Promise((resolve, reject) => {
       this.client.writeSingleCoil(address, value).then(res => {
+        //console.log(res);
         resolve(res);
       }).catch(err => {
         reject(err);
@@ -98,7 +99,7 @@ class ModbusClient {
   writeSingleRegister(address, value) {
     return new Promise((resolve, reject) => {
       this.client.writeSingleRegister(address, Number(Math.round(value))).then(res => {
-        console.log(res);
+        //console.log(res);
         resolve(res);
       }).catch(err => {
         reject(err);
