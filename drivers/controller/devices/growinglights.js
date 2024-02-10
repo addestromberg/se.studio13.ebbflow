@@ -123,7 +123,6 @@ class GrowinglightsDevice extends Device {
               if (this.getCapabilityValue("lightoutput") == res) {
                 this.setCapabilityValue(item.capability, res);
               }
-              
             }
             // Update the settings if timer is changed elsewhere.
             if (item.capability == "ontime") {
