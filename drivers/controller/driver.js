@@ -9,6 +9,7 @@ const AirtempDevice = require("./devices/airtemp");
 const WatertempDevice = require("./devices/watertemp");
 const GrowinglightsDevice = require("./devices/growinglights");
 const AirmixersDevice = require("./devices/airmixers");
+const ExhaustDevice = require("./devices/exhaust");
 
 class ControllerDriver extends Driver {
   // Example object
@@ -69,6 +70,8 @@ class ControllerDriver extends Driver {
       return GrowinglightsDevice;
     } else if (id == "airmixers-reg") {
       return AirmixersDevice;
+    } else if (id == "exhaust-reg") {
+      return ExhaustDevice;
     } else {
       this.error("Couldn't find devicetype.");
       return GenericDevice;
@@ -132,6 +135,7 @@ class ControllerDriver extends Driver {
         data: {
           id: "exhaust-reg",
         },
+        capabilities: ["onoff", "automan", "measure_humidity"],
       },
       {
         name: "Airmixers Regulator",

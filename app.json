@@ -125,6 +125,47 @@
               }
             }
           ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Exhaust Regulator"
+          },
+          "children": [
+            {
+              "id": "sp_humidity",
+              "type": "number",
+              "label": {
+                "en": "Humidity Setpoint"
+              },
+              "value": 60,
+              "hint": {
+                "en": "Set point for humidity. Controls Exhaust fan."
+              }
+            },
+            {
+              "id": "hysterese_humidity",
+              "type": "number",
+              "label": {
+                "en": "Hysterese"
+              },
+              "value": 5,
+              "hint": {
+                "en": "Humidity regulator hysterese."
+              }
+            },
+            {
+              "id": "exhaust_decimal",
+              "type": "number",
+              "label": {
+                "en": "Decimal"
+              },
+              "value": 1,
+              "hint": {
+                "en": "The humidity regulator uses multiply/divide to convert floats to int."
+              }
+            }
+          ]
         }
       ]
     }

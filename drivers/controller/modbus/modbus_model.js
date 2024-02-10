@@ -66,6 +66,7 @@ const ModbusModel = {
   EFB_DRAIN_TIME: { address: 18, fc: ModbusType.HOLDING_REGISTER },
   AIR_TEMP: { address: 19, fc: ModbusType.HOLDING_REGISTER },
   WATER_TEMP: { address: 20, fc: ModbusType.HOLDING_REGISTER },
+  HUMIDITY: { address: 21, fc: ModbusType.HOLDING_REGISTER },
 
 };
 
