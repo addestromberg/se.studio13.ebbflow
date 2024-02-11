@@ -19,13 +19,13 @@ class WatertempDevice extends Device {
     this._settings = this.getSettings();
     // console.log(this._settings);
     // Preload the decimal correction.
-    if (this._settings["decimals"] != 0) this._decimal = 10 ** this._settings['decimals'];
-    
+    if (this._settings["watertemp_decimal"] != 0)
+      this._decimal = 10 ** this._settings["watertemp_decimal"];
+
     this._api = this.driver.getClient(
       this._settings["ip"],
       this._settings["port"]
     );
-    // console.log(this._api);
     this.assemblePollList();
     this.subscribeToEvents();
     this.addCapabilityListeners();
@@ -47,12 +47,16 @@ class WatertempDevice extends Device {
       modbus_item: ModbusModel.WATER_TEMP,
     });
     this._pollList.push({
-      capability: "hysteresis",
+      capability: "hysterese",
       modbus_item: ModbusModel.HYST_WATERTEMP,
     });
     this._pollList.push({
       capability: "onoff",
       modbus_item: ModbusModel.WATERHEATER_ONOFF,
+    });
+    this._pollList.push({
+      capability: "heater_output",
+      modbus_item: ModbusModel.WATERHEATER_OUTPUT,
     });
 
     // this.log('Assembled a new pollinglist');
@@ -86,20 +90,13 @@ class WatertempDevice extends Device {
    * In case capability is settable. Add CapabilityListener
    */
   addCapabilityListeners() {
-    // Watertemp setpoint
+    // Airtemp setpoint
     this.registerCapabilityListener("target_temperature", async (value) => {
-      // console.log(this._decimal);
       this._api
-        .writeSingleRegister(ModbusModel.SP_WATERTEMP.address, value * this._decimal)
-        .catch((err) => {
-          console.log(err);
-        });
-    });
-
-    // Hysterese setpoint
-    this.registerCapabilityListener("hysteresis", async (value) => {
-      this._api
-        .writeSingleRegister(ModbusModel.HYST_WATERTEMP.address, value) // Uses predefined array. No need to multiply decimals.
+        .writeSingleRegister(
+          ModbusModel.SP_WATERTEMP.address,
+          value * this._decimal
+        )
         .catch((err) => {
           console.log(err);
         });
@@ -133,24 +130,36 @@ class WatertempDevice extends Device {
         // this.log(`Polling capability: ${item.capability}`);
         this._api
           .readValue(item)
-          .then((res) => {
+          .then(async (res) => {
             if (item.capability == "automan") {
               this.setCapabilityValue(item.capability, res);
             }
+            
+            if (item.capability == "heater_output") {
+              // Syncronize onoff with timer and override hardware
+              if (this.getCapabilityValue("onoff") != res) {
+                this.setCapabilityValue("onoff", res);
+              }
+            }
+            if (item.capability == "onoff") {
+              if (this.getCapabilityValue("heater_output") == res) {
+                this.setCapabilityValue(item.capability, res);
+              }
+            }
+
             if (item.capability == "measure_temperature") {
               this.setCapabilityValue(item.capability, res / this._decimal);
             }
             if (item.capability == "target_temperature") {
               this.setCapabilityValue(item.capability, res / this._decimal);
             }
-            if (item.capability == "hysteresis") {
-              // Becouse there are no input boxes in homey, we need to use a picker or slider.
-              // so let's use a fixed picker with .5 degree steps on hysteresis.
-              // console.log("Result from hysteresis:  %d", res)
-              let value = Math.ceil(res/5)*5; // Round to closest 5.
-              if (value > 50) value = 50; // Picker array maximum
-              if (value < 0) value = 0; // Picker array minimum
-              this.setCapabilityValue(item.capability, value.toString());
+            if (item.capability == "hysterese") {
+              if (this._settings["watertemp_hysterese"] != res / this._decimal) {
+                await this.setSettings({
+                  watertemp_hysterese: res / this._decimal,
+                }).catch((err) => console.log(err));
+                this._settings = this.getSettings();
+              }
             }
           })
           .catch((err) => {
@@ -176,23 +185,44 @@ class WatertempDevice extends Device {
    * @returns {Promise<string|void>} return a custom message that will be displayed
    */
   async onSettings({ oldSettings, newSettings, changedKeys }) {
-    this.log("MyDevice settings where changed");
+    this.log("Watertemp settings where changed");
     this._settings = newSettings;
-    // Redo decimal preload.
-    if (this._settings["decimals"] != 0) this._decimal = 10 ** this._settings['decimal'];
-    // Reload Client
-    this._api = this.driver.getClient(
-      this._settings["ip"],
-      this._settings["port"]
-    );
-    this.subscribeToEvents();
+    if (changedKeys.includes("watertemp_hysterese")) {
+      console.log("watertemp_hysterese changed. Writing to register.");
+      await this._api
+        .writeSingleRegister(
+          ModbusModel.HYST_WATERTEMP.address,
+          newSettings["watertemp_hysterese"] * this._decimal
+        )
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
+    if (changedKeys.includes("ip") || changedKeys.includes("port")) {
+      this._api = this.driver.getClient(
+        this._settings["ip"],
+        this._settings["port"]
+      );
+      this.subscribeToEvents();
+    }
+
+    if (changedKeys.includes("watertemp_decimal")) {
+      if (this._settings["watertemp_decimal"] > 0) {
+        this._decimal = 10 ** this._settings["watertemp_decimal"];
+      } else {
+        this._decimal = 1;
+      }
+    }
+
+    return "Saved!";
   }
 
   /**
    * onDeleted is called when the user deleted the device.
    */
   async onDeleted() {
-    this.log("MyDevice has been deleted");
+    this.log("Watertemp device has been deleted");
   }
 }
 

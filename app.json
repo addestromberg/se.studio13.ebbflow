@@ -86,15 +86,64 @@
           }
         },
         {
-          "id": "decimals",
-          "type": "number",
+          "type": "group",
           "label": {
-            "en": "Decimals"
+            "en": "Airtemperature"
           },
-          "value": 1,
-          "hint": {
-            "en": "My Server has a decimal divider/multiplier. i.e Temperature of 10.0 is read and written as 100 on server."
-          }
+          "children": [
+            {
+              "id": "airtemp_hysterese",
+              "type": "number",
+              "label": {
+                "en": "Hysterese (°C)"
+              },
+              "value": 2,
+              "hint": {
+                "en": "The hysterese for airtemperature regulator."
+              }
+            },
+            {
+              "id": "airtemp_decimal",
+              "type": "number",
+              "label": {
+                "en": "Decimal"
+              },
+              "value": 1,
+              "hint": {
+                "en": "My Server has a decimal divider/multiplier. i.e Temperature of 10.0 is read and written as 100 on server."
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Watertemperature"
+          },
+          "children": [
+            {
+              "id": "watertemp_hysterese",
+              "type": "number",
+              "label": {
+                "en": "Hysterese (°C)"
+              },
+              "value": 2,
+              "hint": {
+                "en": "The hysterese for watertemperature regulator."
+              }
+            },
+            {
+              "id": "watertemp_decimal",
+              "type": "number",
+              "label": {
+                "en": "Decimal"
+              },
+              "value": 1,
+              "hint": {
+                "en": "My Server has a decimal divider/multiplier. i.e Temperature of 10.0 is read and written as 100 on server."
+              }
+            }
+          ]
         },
         {
           "type": "group",
@@ -356,86 +405,6 @@
       "setable": true,
       "uiComponent": "toggle",
       "uiQuickAction": true
-    },
-    "hysteresis": {
-      "type": "enum",
-      "title": {
-        "en": "Hysteresis"
-      },
-      "uiComponent": "picker",
-      "getable": true,
-      "setable": true,
-      "units": {
-        "en": "°C"
-      },
-      "values": [
-        {
-          "id": "0",
-          "title": {
-            "en": "0 °C"
-          }
-        },
-        {
-          "id": "5",
-          "title": {
-            "en": "0.5 °C"
-          }
-        },
-        {
-          "id": "10",
-          "title": {
-            "en": "1.0 °C"
-          }
-        },
-        {
-          "id": "15",
-          "title": {
-            "en": "1.5 °C"
-          }
-        },
-        {
-          "id": "20",
-          "title": {
-            "en": "2.0 °C"
-          }
-        },
-        {
-          "id": "25",
-          "title": {
-            "en": "2.5 °C"
-          }
-        },
-        {
-          "id": "30",
-          "title": {
-            "en": "3.0 °C"
-          }
-        },
-        {
-          "id": "35",
-          "title": {
-            "en": "3.5 °C"
-          }
-        },
-        {
-          "id": "40",
-          "title": {
-            "en": "4.0 °C"
-          }
-        },
-        {
-          "id": "45",
-          "title": {
-            "en": "4.5 °C"
-          }
-        },
-        {
-          "id": "50",
-          "title": {
-            "en": "5.0 °C"
-          }
-        }
-      ]
     },
     "measure_waterlevel": {
       "type": "number",

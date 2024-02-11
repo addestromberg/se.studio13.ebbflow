@@ -1,174 +1,311 @@
 [
-    {
-      "id": "ip",
-      "type": "text",
-      "label": { "en": "Ip Address" },
-      "value": "192.168.86.150",
-      "hint": { "en": "The servers IP address." }
+  {
+    "id": "ip",
+    "type": "text",
+    "label": {
+      "en": "Ip Address"
     },
-    {
-      "id": "port",
-      "type": "number",
-      "label": { "en": "Port" },
-      "value": 502,
-      "hint": { "en": "The port that the server uses." }
-    },
-    {
-      "id": "decimals",
-      "type": "number",
-      "label": { "en": "Decimals" },
-      "value": 1,
-      "hint": { "en": "My Server has a decimal divider/multiplier. i.e Temperature of 10.0 is read and written as 100 on server." }
-    },
-
-    {
-      "type": "group",
-      "label": { "en": "Growinglights" },
-      "children": [
-        {
-          "id": "growlights_on",
-          "type": "number",
-          "label": { "en": "Time On (min)" },
-          "value": 720,
-          "hint": { "en": "The time growinglights should be on in the on/off cycle." }
-        },
-        {
-          "id": "growlights_off",
-          "type": "number",
-          "label": { "en": "Time Off (min)" },
-          "value": 720,
-          "hint": { "en": "The time growinglights should be off in the on/off cycle." }
-        }
-      ]
-    },
-    {
-      "type": "group",
-      "label": { "en": "Exhaust Regulator" },
-      "children": [
-        {
-          "id": "sp_humidity",
-          "type": "number",
-          "label": { "en": "Humidity Setpoint" },
-          "value": 60,
-          "hint": { "en": "Set point for humidity. Controls Exhaust fan." }
-        },
-        {
-          "id": "hysterese_humidity",
-          "type": "number",
-          "label": { "en": "Hysterese" },
-          "value": 5,
-          "hint": { "en": "Humidity regulator hysterese." }
-        },
-        {
-          "id": "exhaust_decimal",
-          "type": "number",
-          "label": { "en": "Decimal" },
-          "value": 1,
-          "hint": { "en": "The humidity regulator uses multiply/divide to convert floats to int." }
-        }
-      ]
-    },
-    {
-      "type": "group",
-      "label": { "en": "Buffertank" },
-      "children": [
-        {
-          "id": "buffer_h",
-          "type": "number",
-          "label": { "en": "Buffer Level H" },
-          "value": 90,
-          "hint": { "en": "High alarm level." }
-        },
-        {
-          "id": "buffer_l",
-          "type": "number",
-          "label": { "en": "Buffer Level L" },
-          "value": 10,
-          "hint": { "en": "Low alarm level." }
-        },
-        {
-          "id": "buffer_ll",
-          "type": "number",
-          "label": { "en": "Buffer Level LL" },
-          "value": 5,
-          "hint": { "en": "LowLow alarm level." }
-        },
-        {
-          "id": "buffer_decimal",
-          "type": "number",
-          "label": { "en": "Decimal" },
-          "value": 1,
-          "hint": { "en": "The buffer levels uses multiply/divide to convert floats to int." }
-        }
-        
-      ]
-    },
-    {
-      "type": "group",
-      "label": { "en": "Tray A" },
-      "children": [
-        {
-          "id": "flood_time_a",
-          "type": "number",
-          "label": { "en": "Flood Time (min)" },
-          "value": 720,
-          "hint": { "en": "The time the tray is flooded vs drained." }
-        },
-        {
-          "id": "flow_time_a",
-          "type": "number",
-          "label": { "en": "Flow Time (min)" },
-          "value": 720,
-          "hint": { "en": "The time the tray is in flow mode during the flood time." }
-        },
-        {
-          "id": "ebb_time_a",
-          "type": "number",
-          "label": { "en": "Ebb Time (min)" },
-          "value": 720,
-          "hint": { "en": "The time the tray is in ebb vs flow during flood time." }
-        },
-        {
-          "id": "drain_time_a",
-          "type": "number",
-          "label": { "en": "Drain Time (min)" },
-          "value": 720,
-          "hint": { "en": "The time the tray is drained vs flooded." }
-        }
-      ]
-    },
-    {
-      "type": "group",
-      "label": { "en": "Tray B" },
-      "children": [
-        {
-          "id": "flood_time_b",
-          "type": "number",
-          "label": { "en": "Flood Time (min)" },
-          "value": 720,
-          "hint": { "en": "The time the tray is flooded vs drained." }
-        },
-        {
-          "id": "flow_time_b",
-          "type": "number",
-          "label": { "en": "Flow Time (min)" },
-          "value": 720,
-          "hint": { "en": "The time the tray is in flow mode during the flood time." }
-        },
-        {
-          "id": "ebb_time_b",
-          "type": "number",
-          "label": { "en": "Ebb Time (min)" },
-          "value": 720,
-          "hint": { "en": "The time the tray is in ebb vs flow during flood time." }
-        },
-        {
-          "id": "drain_time_b",
-          "type": "number",
-          "label": { "en": "Drain Time (min)" },
-          "value": 720,
-          "hint": { "en": "The time the tray is drained vs flooded." }
-        }
-      ]
+    "value": "192.168.86.150",
+    "hint": {
+      "en": "The servers IP address."
     }
-  ]
+  },
+  {
+    "id": "port",
+    "type": "number",
+    "label": {
+      "en": "Port"
+    },
+    "value": 502,
+    "hint": {
+      "en": "The port that the server uses."
+    }
+  },
+  {
+    "type": "group",
+    "label": {
+      "en": "Airtemperature"
+    },
+    "children": [
+      {
+        "id": "airtemp_hysterese",
+        "type": "number",
+        "label": {
+          "en": "Hysterese (°C)"
+        },
+        "value": 2,
+        "hint": {
+          "en": "The hysterese for airtemperature regulator."
+        }
+      },
+      {
+        "id": "airtemp_decimal",
+        "type": "number",
+        "label": {
+          "en": "Decimal"
+        },
+        "value": 1,
+        "hint": {
+          "en": "My Server has a decimal divider/multiplier. i.e Temperature of 10.0 is read and written as 100 on server."
+        }
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": {
+      "en": "Watertemperature"
+    },
+    "children": [
+      {
+        "id": "watertemp_hysterese",
+        "type": "number",
+        "label": {
+          "en": "Hysterese (°C)"
+        },
+        "value": 2,
+        "hint": {
+          "en": "The hysterese for watertemperature regulator."
+        }
+      },
+      {
+        "id": "watertemp_decimal",
+        "type": "number",
+        "label": {
+          "en": "Decimal"
+        },
+        "value": 1,
+        "hint": {
+          "en": "My Server has a decimal divider/multiplier. i.e Temperature of 10.0 is read and written as 100 on server."
+        }
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": {
+      "en": "Growinglights"
+    },
+    "children": [
+      {
+        "id": "growlights_on",
+        "type": "number",
+        "label": {
+          "en": "Time On (min)"
+        },
+        "value": 720,
+        "hint": {
+          "en": "The time growinglights should be on in the on/off cycle."
+        }
+      },
+      {
+        "id": "growlights_off",
+        "type": "number",
+        "label": {
+          "en": "Time Off (min)"
+        },
+        "value": 720,
+        "hint": {
+          "en": "The time growinglights should be off in the on/off cycle."
+        }
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": {
+      "en": "Exhaust Regulator"
+    },
+    "children": [
+      {
+        "id": "sp_humidity",
+        "type": "number",
+        "label": {
+          "en": "Humidity Setpoint"
+        },
+        "value": 60,
+        "hint": {
+          "en": "Set point for humidity. Controls Exhaust fan."
+        }
+      },
+      {
+        "id": "hysterese_humidity",
+        "type": "number",
+        "label": {
+          "en": "Hysterese"
+        },
+        "value": 5,
+        "hint": {
+          "en": "Humidity regulator hysterese."
+        }
+      },
+      {
+        "id": "exhaust_decimal",
+        "type": "number",
+        "label": {
+          "en": "Decimal"
+        },
+        "value": 1,
+        "hint": {
+          "en": "The humidity regulator uses multiply/divide to convert floats to int."
+        }
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": {
+      "en": "Buffertank"
+    },
+    "children": [
+      {
+        "id": "buffer_h",
+        "type": "number",
+        "label": {
+          "en": "Buffer Level H"
+        },
+        "value": 90,
+        "hint": {
+          "en": "High alarm level."
+        }
+      },
+      {
+        "id": "buffer_l",
+        "type": "number",
+        "label": {
+          "en": "Buffer Level L"
+        },
+        "value": 10,
+        "hint": {
+          "en": "Low alarm level."
+        }
+      },
+      {
+        "id": "buffer_ll",
+        "type": "number",
+        "label": {
+          "en": "Buffer Level LL"
+        },
+        "value": 5,
+        "hint": {
+          "en": "LowLow alarm level."
+        }
+      },
+      {
+        "id": "buffer_decimal",
+        "type": "number",
+        "label": {
+          "en": "Decimal"
+        },
+        "value": 1,
+        "hint": {
+          "en": "The buffer levels uses multiply/divide to convert floats to int."
+        }
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": {
+      "en": "Tray A"
+    },
+    "children": [
+      {
+        "id": "flood_time_a",
+        "type": "number",
+        "label": {
+          "en": "Flood Time (min)"
+        },
+        "value": 720,
+        "hint": {
+          "en": "The time the tray is flooded vs drained."
+        }
+      },
+      {
+        "id": "flow_time_a",
+        "type": "number",
+        "label": {
+          "en": "Flow Time (min)"
+        },
+        "value": 720,
+        "hint": {
+          "en": "The time the tray is in flow mode during the flood time."
+        }
+      },
+      {
+        "id": "ebb_time_a",
+        "type": "number",
+        "label": {
+          "en": "Ebb Time (min)"
+        },
+        "value": 720,
+        "hint": {
+          "en": "The time the tray is in ebb vs flow during flood time."
+        }
+      },
+      {
+        "id": "drain_time_a",
+        "type": "number",
+        "label": {
+          "en": "Drain Time (min)"
+        },
+        "value": 720,
+        "hint": {
+          "en": "The time the tray is drained vs flooded."
+        }
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": {
+      "en": "Tray B"
+    },
+    "children": [
+      {
+        "id": "flood_time_b",
+        "type": "number",
+        "label": {
+          "en": "Flood Time (min)"
+        },
+        "value": 720,
+        "hint": {
+          "en": "The time the tray is flooded vs drained."
+        }
+      },
+      {
+        "id": "flow_time_b",
+        "type": "number",
+        "label": {
+          "en": "Flow Time (min)"
+        },
+        "value": 720,
+        "hint": {
+          "en": "The time the tray is in flow mode during the flood time."
+        }
+      },
+      {
+        "id": "ebb_time_b",
+        "type": "number",
+        "label": {
+          "en": "Ebb Time (min)"
+        },
+        "value": 720,
+        "hint": {
+          "en": "The time the tray is in ebb vs flow during flood time."
+        }
+      },
+      {
+        "id": "drain_time_b",
+        "type": "number",
+        "label": {
+          "en": "Drain Time (min)"
+        },
+        "value": 720,
+        "hint": {
+          "en": "The time the tray is drained vs flooded."
+        }
+      }
+    ]
+  }
+]

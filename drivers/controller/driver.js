@@ -107,7 +107,6 @@ class ControllerDriver extends Driver {
           "automan",
           "target_temperature",
           "measure_temperature",
-          "hysteresis",
           "onoff",
         ],
         capabilitiesOptions: {
@@ -126,7 +125,6 @@ class ControllerDriver extends Driver {
           "automan",
           "target_temperature",
           "measure_temperature",
-          "hysteresis",
           "onoff",
         ],
         capabilitiesOptions: {
