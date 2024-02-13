@@ -26,6 +26,8 @@ const ModbusModel = {
   EFB_AUTO: { address: 8270, fc: ModbusType.COIL },
   FLOWPUMP_B_ONOFF: { address: 8271, fc: ModbusType.COIL },
   DUMPVALVE_B_OPENCLOSE: { address: 8272, fc: ModbusType.COIL },
+  CIRCPUMP_AUTO: { address: 8276, fc: ModbusType.COIL },
+  CIRCPUMP_ONOFF: { address: 8277, fc: ModbusType.COIL },
   // ALARMFLAGS (READ ONLY)
   BUFFERLEVEL_H: { address: 8273, fc: ModbusType.COIL },
   BUFFERLEVEL_L: { address: 8274, fc: ModbusType.COIL },
@@ -41,6 +43,7 @@ const ModbusModel = {
   DUMPVALVE_A_OUTPUT: { address: 8198, fc: ModbusType.COIL },
   FLOWPUMP_B_OUTPUT: { address: 8199, fc: ModbusType.COIL },
   DUMPVALVE_B_OUTPUT: { address: 8200, fc: ModbusType.COIL },
+  CIRCPUMP_OUTPUT: { address: 8201, fc: ModbusType.COIL },
 
   // Analog in (Read only)
   BUFFERTEMP_INPUT: { address: 0, fc: ModbusType.INPUT_REGISTER },
@@ -72,6 +75,8 @@ const ModbusModel = {
   WATER_TEMP: { address: 20, fc: ModbusType.HOLDING_REGISTER },
   HUMIDITY: { address: 21, fc: ModbusType.HOLDING_REGISTER },
   BUFFERLEVEL: { address: 22, fc: ModbusType.HOLDING_REGISTER },
+  SP_CIRCPUMP_ON: { address: 23, fc: ModbusType.HOLDING_REGISTER },
+  SP_CIRCPUMP_OFF: { address: 24, fc: ModbusType.HOLDING_REGISTER },
 
 };
 

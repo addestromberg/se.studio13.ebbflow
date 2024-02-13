@@ -13,6 +13,7 @@ const ExhaustDevice = require("./devices/exhaust");
 const BufferDevice = require("./devices/buffer");
 const TrayADevice = require("./devices/tray_a");
 const TrayBDevice = require("./devices/tray_b");
+const CircpumpDevice = require("./devices/circ_pump");
 
 class ControllerDriver extends Driver {
   // Example object
@@ -75,6 +76,8 @@ class ControllerDriver extends Driver {
       return WatertempDevice;
     } else if (id == "growlight-reg") {
       return GrowinglightsDevice;
+    } else if (id == "circpump-reg") {
+      return CircpumpDevice;
     } else if (id == "airmixers-reg") {
       return AirmixersDevice;
     } else if (id == "exhaust-reg") {
@@ -138,6 +141,13 @@ class ControllerDriver extends Driver {
         name: "Growlight Regulator",
         data: {
           id: "growlight-reg",
+        },
+        capabilities: ["onoff", "automan"],
+      },
+      {
+        name: "O2 Dispersion Regulator",
+        data: {
+          id: "circpump-reg",
         },
         capabilities: ["onoff", "automan"],
       },

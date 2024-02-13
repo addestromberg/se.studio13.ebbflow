@@ -178,6 +178,36 @@
         {
           "type": "group",
           "label": {
+            "en": "O2 Dispersion"
+          },
+          "children": [
+            {
+              "id": "circpump_on",
+              "type": "number",
+              "label": {
+                "en": "Time On (min)"
+              },
+              "value": 720,
+              "hint": {
+                "en": "The time circulation should be on in the on/off cycle."
+              }
+            },
+            {
+              "id": "circpump_off",
+              "type": "number",
+              "label": {
+                "en": "Time Off (min)"
+              },
+              "value": 720,
+              "hint": {
+                "en": "The time circulation should be off in the on/off cycle."
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
             "en": "Exhaust Regulator"
           },
           "children": [
